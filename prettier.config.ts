@@ -1,0 +1,87 @@
+import type { Config } from 'prettier'
+
+const config: Config = {
+  semi: false,
+  singleQuote: true,
+  jsxSingleQuote: true,
+  trailingComma: 'all',
+  bracketSpacing: true,
+  objectWrap: 'preserve',
+  bracketSameLine: false,
+  rangeStart: 0,
+  rangeEnd: Number.POSITIVE_INFINITY,
+  requirePragma: false,
+  insertPragma: false,
+  checkIgnorePragma: false,
+  proseWrap: 'preserve',
+  arrowParens: 'always',
+  htmlWhitespaceSensitivity: 'css',
+  endOfLine: 'lf',
+  quoteProps: 'as-needed',
+  vueIndentScriptAndStyle: false,
+  embeddedLanguageFormatting: 'auto',
+  singleAttributePerLine: true,
+  experimentalOperatorPosition: 'start',
+  experimentalTernaries: true,
+  printWidth: 100,
+  plugins: [
+    'prettier-plugin-sh',
+    'prettier-plugin-packagejson',
+    '@ianvs/prettier-plugin-sort-imports',
+  ],
+  importOrder: [
+    '<TYPES>^(node:)',
+    '<TYPES>^@/(.*)$',
+    '<TYPES>^[.]',
+    '<TYPES>',
+    '',
+    '<BUILTIN_MODULES>',
+    '',
+    '<THIRD_PARTY_MODULES>',
+    '',
+    '^@/(.*)$',
+    '^[.]',
+    '',
+    '^virtual:',
+  ],
+  importOrderSafeSideEffects: ['^virtual:'],
+  importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
+  importOrderTypeScriptVersion: '6.0.3',
+  importOrderCaseSensitive: true,
+  overrides: [
+    {
+      files: ['.env', '.env.*', '*.sh'],
+      options: {
+        parser: 'sh',
+        indent: 2,
+        binaryNextLine: true,
+        switchCaseIndent: true,
+        spaceRedirects: true,
+        keepComments: true,
+        functionNextLine: false,
+      },
+    },
+    {
+      files: ['*.json'],
+      options: {
+        tabWidth: 4,
+        insertPragma: false,
+      },
+    },
+    {
+      files: ['*.json5'],
+      options: {
+        tabWidth: 2,
+        insertPragma: false,
+      },
+    },
+    {
+      files: ['*.yml', '*.yaml'],
+      options: {
+        tabWidth: 2,
+      },
+    },
+  ],
+}
+
+export default config
