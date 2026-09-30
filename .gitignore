@@ -1,0 +1,96 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Vitest
+__screenshots__/
+
+# Vite
+*.timestamp-*-*.mjs
+
+# Stylelint
+stylelint.config.ts.*.mjs
+.stylelintcache
+
+# Test
+test-results/
+playwright-report/
+
+# Quasar core related directories
+.quasar
+/quasar.config.*.temporary.compiled*
+
+# Cordova related directories and files
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+
+# Capacitor related directories and files
+/src-capacitor/www
+/src-capacitor/node_modules
+
+# AI
+.codebuddy/
+.codebuddycn/
+CODEBUDDY.local.md
+.cursor/
+.cursorrules
+.windsurf/
+.cline/
+.roo-cline/
+.continue/
+.copilot/
+.pearai/
+.tabnine/
+.cody/
+.sweep/
+.uignore
+.aiignore
+graphify-out/cache/
+.mars/
+.comate/
+.lingma/
+.tongyi/
+.devchat/
+.fitten/
+.codegeex/
+.doubao/
+.baichuan/
+.deepseek/
+.crewai/
+auto_gpt_workspace/
+.autogen/
+workspace_gpt/
+ai_logs/
+*.ai.log
+
+# other
+.DS_Store
+node_modules
+dist
+dist-ssr
+coverage
+*.local
+*.tsbuildinfo
+.eslintcache
+*.apk
