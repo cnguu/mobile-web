@@ -40,7 +40,7 @@ export default defineConfigWithVueTs(
     rules: {
       'vue/multi-word-component-names': 'off',
       'vue/v-slot-style': ['warn', 'shorthand'],
-      'vue/attributes-order': ['warn', { alphabetical: true }],
+      'vue/attributes-order': ['error', { alphabetical: true }],
       'vue/valid-v-slot': 'off',
     },
   },

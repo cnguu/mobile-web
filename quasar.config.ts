@@ -1,4 +1,5 @@
 import { defineConfig } from '#q-app'
+import UnoCSS from 'unocss/vite'
 import { compression } from 'vite-plugin-compression2'
 import VitePluginJson5 from 'vite-plugin-json5'
 
@@ -9,7 +10,7 @@ export default defineConfig((ctx) => {
 
   return {
     preFetch: true,
-    boot: ['i18n'],
+    boot: ['i18n', 'unocss'],
     css: ['app.scss'],
     extras: ['roboto-font', 'material-icons'],
     build: {
@@ -46,6 +47,7 @@ export default defineConfig((ctx) => {
           : false,
       },
       vitePlugins: [
+        ...UnoCSS(),
         ['@vitejs/plugin-vue-jsx', {}],
         VitePluginJson5({ dts: false }),
         [
@@ -63,8 +65,17 @@ export default defineConfig((ctx) => {
           {
             vueTsc: true,
             eslint: {
-              lintCommand: 'eslint -c ./eslint.config.ts "./src*/**/*.{ts,js,mjs,cjs,vue}"',
+              lintCommand: 'eslint -c ./eslint.config.ts "./src*/**/*.{js,ts,cjs,mjs,vue}"',
               useFlatConfig: true,
+              dev: {
+                logLevel: ['error'],
+              },
+            },
+            stylelint: {
+              lintCommand: 'stylelint "./src/**/*.{css,scss,vue,html}"',
+              dev: {
+                logLevel: ['error'],
+              },
             },
           },
           { server: false },
