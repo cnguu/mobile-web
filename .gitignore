@@ -94,3 +94,4 @@ coverage
 *.tsbuildinfo
 .eslintcache
 *.apk
+typed-router.d.ts
