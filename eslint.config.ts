@@ -4,18 +4,50 @@ import unocss from '@unocss/eslint-config/flat'
 import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import gitignore from 'eslint-config-flat-gitignore'
+import pluginPnpmRaw, { configs as pnpmConfigs } from 'eslint-plugin-pnpm'
 import pluginVue from 'eslint-plugin-vue'
 import { globalIgnores } from 'eslint/config'
 import globals from 'globals'
+import * as yamlParser from 'yaml-eslint-parser'
 
 export default defineConfigWithVueTs(
   gitignore(),
   globalIgnores(['src/dts/typed-router.d.ts']),
+
   pluginQuasar.configs.recommended(),
   js.configs.recommended,
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommendedTypeChecked,
   unocss,
+
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        // 支持 SSR, Electron 和配置文件
+        ...globals.node,
+        // 支持 process.env.*
+        process: 'readonly',
+        // Google Analytics
+        ga: 'readonly',
+        // 移动端混合开发
+        cordova: 'readonly',
+        // 移动端混合开发
+        Capacitor: 'readonly',
+        // Quasar BEX 浏览器扩展
+        chrome: 'readonly',
+        // Quasar BEX 浏览器扩展
+        browser: 'readonly',
+      },
+    },
+    rules: {
+      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+      'prefer-promise-reject-errors': 'off',
+    },
+  },
+
   {
     files: ['**/*.ts', '**/*.vue'],
     rules: {
@@ -44,33 +76,7 @@ export default defineConfigWithVueTs(
       'vue/valid-v-slot': 'off',
     },
   },
-  {
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        // 支持 SSR, Electron 和配置文件
-        ...globals.node,
-        // 支持 process.env.*
-        process: 'readonly',
-        // Google Analytics
-        ga: 'readonly',
-        // 移动端混合开发
-        cordova: 'readonly',
-        // 移动端混合开发
-        Capacitor: 'readonly',
-        // Quasar BEX 浏览器扩展
-        chrome: 'readonly',
-        // Quasar BEX 浏览器扩展
-        browser: 'readonly',
-      },
-    },
-    rules: {
-      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-      'prefer-promise-reject-errors': 'off',
-    },
-  },
+
   {
     files: ['src-pwa/sw/**/*.ts'],
     languageOptions: {
@@ -79,5 +85,28 @@ export default defineConfigWithVueTs(
       },
     },
   },
+
+  {
+    files: ['**/*.yaml', '**/*.yml', '**/*.json', '**/*.json5', '**/*.md'],
+    extends: [vueTsConfigs.disableTypeChecked],
+  },
+
+  ...pnpmConfigs.recommended,
+  {
+    files: ['**/package.json'],
+    plugins: {
+      pnpm: pluginPnpmRaw,
+    },
+    rules: {
+      'pnpm/json-enforce-catalog': 'off',
+    },
+  },
+  {
+    files: ['**/pnpm-workspace.yaml'],
+    languageOptions: {
+      parser: yamlParser,
+    },
+  },
+
   prettierSkipFormatting,
 )
