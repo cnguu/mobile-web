@@ -1,5 +1,6 @@
 import js from '@eslint/js'
 import pluginQuasar from '@quasar/app-vite/eslint'
+import unocss from '@unocss/eslint-config/flat'
 import prettierSkipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import gitignore from 'eslint-config-flat-gitignore'
@@ -9,13 +10,12 @@ import globals from 'globals'
 
 export default defineConfigWithVueTs(
   gitignore(),
-  globalIgnores([
-    'src/dts/typed-router.d.ts',
-  ]),
+  globalIgnores(['src/dts/typed-router.d.ts']),
   pluginQuasar.configs.recommended(),
   js.configs.recommended,
   pluginVue.configs['flat/recommended'],
   vueTsConfigs.recommendedTypeChecked,
+  unocss,
   {
     files: ['**/*.ts', '**/*.vue'],
     rules: {
