@@ -4,18 +4,17 @@ post-merge:
       run: pnpm i --frozen-lockfile
 
 pre-commit:
-  piped: true
-  jobs:
-    - name: lint-stylelint
+  commands:
+    lint-stylelint:
       glob: 'src/**/*.{css,scss,vue,html}'
       run: pnpm stylelint --fix --cache --allow-empty-input {staged_files}
       stage_fixed: true
-    - name: lint-eslint
+    lint-eslint:
       glob: 'src/**/*.{js,ts,cjs,mjs,vue}'
       run: pnpm eslint --fix --cache -c ./eslint.config.ts --no-error-on-unmatched-pattern {staged_files}
       stage_fixed: true
-    - name: lint-prettier
+    lint-prettier:
       glob: '*.{js,ts,vue,css,scss,html,md,json,json5}'
       exclude: '(pnpm-lock.yaml|package-lock.json)'
-      run: pnpm prettier --write --cache --allow-empty-input {staged_files}
+      run: echo "{staged_files}" | xargs pnpm prettier --write --cache
       stage_fixed: true
